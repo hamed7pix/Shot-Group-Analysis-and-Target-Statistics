@@ -133,7 +133,7 @@ cd ShotGroupAnalyzer
 Run the application:
 
 ```bash
-python target_analyzer_fixed.py
+python target_analyzer.py
 ```
 
 ---
