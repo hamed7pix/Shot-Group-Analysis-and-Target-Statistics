@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shot Group Analysis & Target Statistics</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="main-container">
+        <!-- LEFT COLUMN: TARGET UI -->
+        <div class="left-column">
+            <div class="header-frame">
+                <div class="date-label" id="date-label"></div>
+                <div class="score-label" id="score-label">0-0x</div>
+            </div>
+
+            <div class="canvas-container">
+                <canvas id="targetCanvas" width="480" height="480"></canvas>
+            </div>
+
+            <div class="stats-frame">
+                <div class="stats-col">
+                    <div class="stat-row"><span class="stat-lbl">Windage:</span><span class="stat-val" id="windage-val">0.0 mm</span></div>
+                    <div class="stat-row"><span class="stat-lbl">Elevation:</span><span class="stat-val" id="elevation-val">0.0 mm</span></div>
+                </div>
+                <div class="stats-col">
+                    <div class="stat-row"><span class="stat-lbl">Mean radius:</span><span class="stat-val" id="mean-radius-val">0.0 mm</span></div>
+                    <div class="stat-row"><span class="stat-lbl">Max spread:</span><span class="stat-val" id="max-spread-val">0.0 mm</span></div>
+                </div>
+            </div>
+
+            <div class="histo-container">
+                <canvas id="histoCanvas" width="480" height="120"></canvas>
+            </div>
+        </div>
+
+        <!-- RIGHT COLUMN: CONTROL PANEL -->
+        <div class="right-column">
+            <div class="control-header">CONTROL CENTER</div>
+
+            <div class="settings-frame">
+                <div class="frame-title">Target Setup & Calibration</div>
+
+                <label>Target Standard:</label>
+                <select id="preset-combo">
+                    {% for preset, values in presets.items() %}
+                        <option value="{{ preset }}" data-tdia="{{ values.target_diameter }}" data-sdia="{{ values.shot_diameter }}">{{ preset }}</option>
+                    {% endfor %}
+                </select>
+
+                <label>Outer Ring Diameter (mm):</label>
+                <input type="number" id="dia-entry" step="0.1" value="155.5">
+
+                <label>Shot / Pellet Diameter (mm):</label>
+                <input type="number" id="shot-dia-entry" step="0.1" value="4.5">
+            </div>
+
+            <div class="btn-frame">
+                <button id="btn-undo">Undo Last Shot</button>
+                <button id="btn-clear">Clear Target</button>
+                <button id="btn-export">Export CSV Data</button>
+            </div>
+
+            <div class="table-frame">
+                <div class="frame-title">Shot Log</div>
+                <select id="shot-listbox" size="10"></select>
+            </div>
+
+            <div class="tip-label">
+                Tip: Left-click on target to shoot.<br>
+                Double-click a shot log row to delete it.
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('date-label').textContent = new Date().toLocaleDateString('en-GB');
+    </script>
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>

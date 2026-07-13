@@ -100,19 +100,7 @@ The exported file includes:
 ## Requirements
 
 - Python 3.10+
-
-### Standard Libraries
-
-The project only uses Python standard libraries.
-
-```
-tkinter
-math
-datetime
-csv
-```
-
-No external packages are required.
+- Flask
 
 ---
 
@@ -130,11 +118,17 @@ Move into the project directory:
 cd ShotGroupAnalyzer
 ```
 
+Install dependencies:
+```bash
+pip install -r requirements.txt
+```
+
 Run the application:
 
 ```bash
-python target_analyzer.py
+python app.py
 ```
+Then visit `http://localhost:5000` in your web browser.
 
 ---
 
